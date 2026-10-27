@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="manifest.open_in_tab" content="true">
+  <title>Freelancer AI Copilot — Settings & Profile</title>
+</head>
+<body class="native-settings">
+  <div class="settings-shell">
+    <!-- Top Header -->
+    <header class="settings-header">
+      <div class="header-brand">
+        <div class="app-logo">
+          <img src="/icon-48.png" alt="Freelancer AI Copilot" width="36" height="36" />
+        </div>
+        <div>
+          <h1 class="header-title">Freelancer AI Copilot Settings</h1>
+          <p class="header-subtitle">Configure your truthful personal profile, OpenAI models, and platform safety rules.</p>
+        </div>
+      </div>
+      <div class="header-extras">
+        <button id="openInTabBtn" class="pill-btn subtle" title="Open these settings in a full browser tab">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          <span>Open Full Tab</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Native Segmented Settings Tabs -->
+    <nav class="settings-tabs" role="tablist">
+      <button class="settings-tab active" id="tabBtnProfile" role="tab" aria-selected="true" data-tab="sectionProfile">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Freelancer Profile</span>
+      </button>
+
+      <button class="settings-tab" id="tabBtnApi" role="tab" aria-selected="false" data-tab="sectionApi">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <polygon points="12 6 12 12 16 14"/>
+        </svg>
+        <span>OpenAI & Model</span>
+      </button>
+
+      <button class="settings-tab" id="tabBtnCompliance" role="tab" aria-selected="false" data-tab="sectionCompliance">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+        </svg>
+        <span>Platform Gate & Privacy</span>
+      </button>
+    </nav>
+
+    <!-- Main Settings Panels -->
+    <main class="settings-body">
+      <!-- SECTION 1: FREELANCER PROFILE -->
+      <section id="sectionProfile" class="settings-panel active" role="tabpanel">
+        <div class="card">
+          <div class="card-head">
+            <h2>Truthful Profile</h2>
+            <span class="badge-tag">Facts Only</span>
+          </div>
+          <p class="card-desc">The AI proposal generator relies strictly on these facts. It will never fabricate years, outcomes, or clients.</p>
+
+          <div class="grid-3col">
+            <div class="form-group">
+              <label for="displayName">Display Name</label>
+              <input type="text" id="displayName" placeholder="e.g. Alex Rivers">
+            </div>
+            <div class="form-group">
+              <label for="preferredLanguage">Preferred Language</label>
+              <input type="text" id="preferredLanguage" placeholder="English">
+            </div>
+            <div class="form-group">
+              <label for="targetWordCount">Target Words</label>
+              <input type="number" id="targetWordCount" placeholder="160" min="40" max="600">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="skills">Skills & Core Technologies (comma separated)</label>
+            <textarea id="skills" rows="2" placeholder="TypeScript, React, Chrome Extension MV3, Tailwind CSS, Python, Node.js"></textarea>
+            <p class="hint">List technologies you genuinely have experience with.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="experienceFacts">Verified Experience & Achievements (one per line)</label>
+            <textarea id="experienceFacts" rows="4" placeholder="5 years building production web applications&#10;Published 3 Chrome Extensions with 10k+ active users&#10;Expert in asynchronous TypeScript and API integration"></textarea>
+            <p class="hint">Truthful facts only. Avoid exaggerated claims or vague marketing fluff.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h2>Writing Voice & Tone</h2>
+          </div>
+
+          <div class="form-group">
+            <label for="toneInstructions">Writing Tone & Directives</label>
+            <textarea id="toneInstructions" rows="3" placeholder="Direct, authentic, conversational yet professional. Avoid generic sales hype or corporate buzzwords. Lead with technical observations."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="proposalExamples">Past Winning Proposal Examples (one per block, separated by '---')</label>
+            <textarea id="proposalExamples" rows="4" placeholder="Paste 1-2 examples of your best proposals to help the AI emulate your voice without copying facts."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="avoidPhrases">Phrases to Strictly Avoid (comma separated)</label>
+            <textarea id="avoidPhrases" rows="2" placeholder="Dear Hiring Manager, I am thrilled to apply, rockstar developer, ninja, guaranteed 100% satisfaction"></textarea>
+            <p class="hint">The generator will filter out any phrase on this blacklist.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: AI PROVIDER & MODEL -->
+      <section id="sectionApi" class="settings-panel" role="tabpanel" hidden>
+        <div class="card">
+          <div class="card-head">
+            <h2>AI Provider & API Configuration</h2>
+          </div>
+
+          <div class="banner warning">
+            <strong>Security Notice:</strong> Your API key is stored locally in your browser (<code>chrome.storage.local</code>). It is only sent directly to your configured provider endpoint (<code id="endpointUrlDisplay">https://api.groq.com/openai/v1/chat/completions</code>).
+          </div>
+
+          <div class="form-group">
+            <label for="providerSelect">Select AI Provider</label>
+            <select id="providerSelect">
+              <option value="groq">⚡ Groq Cloud (Ultra-Fast & Generous Free Tier — Recommended)</option>
+              <option value="openai">OpenAI (api.openai.com)</option>
+            </select>
+            <p class="hint">Groq provides lightning-fast inference for state-of-the-art open models like Llama 3.3 70B.</p>
+          </div>
+
+          <div class="form-group">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <label for="apiKey" id="apiKeyLabel">Groq API Key</label>
+              <a id="apiKeyPortalLink" href="https://console.groq.com/keys" target="_blank" class="pill-btn subtle" style="font-size:11px; padding:3px 8px; margin-bottom:5px;">
+                Get Free API Key at console.groq.com ↗
+              </a>
+            </div>
+            <div class="input-with-action">
+              <input type="password" id="apiKey" placeholder="gsk_..." autocomplete="off">
+              <button id="toggleKeyVisibilityBtn" type="button" class="inline-btn" title="Show/Hide Key">Show</button>
+            </div>
+            <p class="hint" id="apiKeyHint">Personal API key starting with <code>gsk_</code> (Groq) or <code>sk-</code> (OpenAI).</p>
+          </div>
+
+          <div class="grid-2col">
+            <div class="form-group">
+              <label for="model">Model Name</label>
+              <input type="text" id="model" placeholder="llama-3.3-70b-versatile">
+              <div class="quick-presets" id="presetsContainer">
+                <span class="preset-label">Presets:</span>
+                <!-- Presets dynamically rendered or prefilled -->
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="preferredBudget">Default Proposed Budget Note (Optional)</label>
+              <input type="text" id="preferredBudget" placeholder="e.g. $35/hr or $400 fixed">
+              <p class="hint">Prefills your proposed budget box in the popup.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: COMPLIANCE & PRIVACY -->
+      <section id="sectionCompliance" class="settings-panel" role="tabpanel" hidden>
+        <div class="card">
+          <div class="card-head">
+            <h2>Platform Terms Compliance Gate</h2>
+          </div>
+
+          <div class="banner warning">
+            <strong>Platform Policy Warning:</strong> Freelancer.com terms of service may restrict automated page interaction and bid filling. Live site automation is kept <strong>disabled by default</strong> to protect user accounts. Develop and test using local mock pages. Only enable if you have verified current platform terms.
+          </div>
+
+          <label class="native-switch-row" for="liveAdapterEnabled">
+            <div class="switch">
+              <input type="checkbox" id="liveAdapterEnabled">
+              <span class="slider"></span>
+            </div>
+            <div class="switch-content">
+              <strong>Enable Live Freelancer.com Adapter</strong>
+              <p class="hint">When disabled, extraction and autofill remain strictly restricted to local mock fixtures and manual paste mode.</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="card danger-zone">
+          <div class="card-head">
+            <h2 class="danger-title">Data Management (Danger Zone)</h2>
+          </div>
+          <p class="card-desc">All your profile facts, API settings, and saved proposal drafts reside locally on this computer. You can permanently erase everything with one click.</p>
+          <button id="clearDataBtn" class="danger-btn">Clear All Local Extension Data</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Fixed Sticky Action Bar -->
+    <footer class="settings-footer">
+      <div class="footer-status">
+        <span id="saveStatus" class="status-message" role="status" aria-live="polite"></span>
+      </div>
+      <button id="saveBtn" class="primary-btn glow">Save Changes</button>
+    </footer>
+  </div>
+
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freelancer AI Copilot</title>
+</head>
+<body class="native-app">
+  <div id="app" class="window-shell">
+    <!-- Native Window Header / Titlebar -->
+    <header class="titlebar">
+      <div class="brand-group">
+        <div class="app-icon" aria-hidden="true">
+          <img src="/icon-32.png" alt="Freelancer AI Copilot" width="28" height="28" />
+        </div>
+        <div class="brand-text">
+          <h1 class="window-title">Freelancer Copilot</h1>
+          <span class="sub-badge" id="profileSummary">Profile: Ready</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="status-pill" id="apiStatusBadge" title="API Status">
+          <span class="pulse-dot" id="statusDot"></span>
+          <span class="status-label" id="apiStatusText">Checking API...</span>
+        </div>
+        <button id="openOptionsBtn" class="icon-btn" title="Open Settings & Profile" aria-label="Open Settings">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Native Segmented Tab Navigation -->
+    <nav class="segmented-control" role="tablist" aria-label="Extension Views">
+      <button class="segment-tab active" id="tabDraft" role="tab" aria-selected="true" data-tab="viewDraft">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        <span>Proposal Draft</span>
+      </button>
+
+      <button class="segment-tab" id="tabProject" role="tab" aria-selected="false" data-tab="viewProject">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="18" height="18" x="3" y="3" rx="2"/>
+          <path d="M7 7h10"/>
+          <path d="M7 12h10"/>
+          <path d="M7 17h6"/>
+        </svg>
+        <span>Project</span>
+      </button>
+
+      <button class="segment-tab" id="tabLibrary" role="tab" aria-selected="false" data-tab="viewLibrary">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        <span>Library & Wins 🏆</span>
+      </button>
+
+      <button class="segment-tab" id="tabProfile" role="tab" aria-selected="false" data-tab="viewProfile">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+
+    <!-- Main Content Area with Views -->
+    <main class="view-viewport">
+      <!-- VIEW 1: PROPOSAL DRAFT (PRIMARY) -->
+      <section id="viewDraft" class="tab-panel active" role="tabpanel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <span class="panel-title">Your Proposal</span>
+            <span class="pill-badge" id="wordCountBadge">0 words</span>
+          </div>
+          <button id="quickReadBtn" class="pill-btn subtle" title="Read visible details from active browser tab">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M2 12h20M12 2v20"/>
+            </svg>
+            <span>Scan Page</span>
+          </button>
+        </div>
+
+        <div class="editor-shell">
+          <textarea id="proposalDraft" rows="8" placeholder="Generated proposal will appear here. You can freely edit before filling or copying..."></textarea>
+          <div class="editor-footer">
+            <span class="char-hint">Fact-checked with your profile</span>
+            <span class="shortcut-hint"><kbd>Ctrl+Enter</kbd> to generate</span>
+          </div>
+        </div>
+
+        <div class="action-grid">
+          <button id="generateBtn" class="primary-btn glow-effect">
+            <svg class="sparkle-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/>
+            </svg>
+            <span id="generateBtnText">Generate Tailored Proposal</span>
+          </button>
+        </div>
+
+        <div class="toggle-control">
+          <label class="switch-label" for="overwriteCheckbox">
+            <div class="switch">
+              <input type="checkbox" id="overwriteCheckbox">
+              <span class="slider"></span>
+            </div>
+            <span class="switch-text">Allow overwriting non-empty fields during autofill</span>
+          </label>
+        </div>
+
+        <div class="split-actions">
+          <button id="copyBtn" class="secondary-btn" title="Copy to clipboard">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+            </svg>
+            <span>Copy</span>
+          </button>
+
+          <button id="saveLibraryBtn" class="secondary-btn" title="Save this proposal to your library for bookmarking and AI learning">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            <span>Save to Library</span>
+          </button>
+
+          <button id="autofillBtn" class="accent-btn" title="Fill supported fields in active page">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+            <span>Autofill</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- VIEW 2: PROJECT DETAILS -->
+      <section id="viewProject" class="tab-panel" role="tabpanel" hidden>
+        <div class="panel-header">
+          <span class="panel-title">Extracted Details</span>
+          <button id="readProjectBtn" class="pill-btn highlight">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
+              <path d="M21 3v5h-5"/>
+            </svg>
+            <span>Read Current Tab</span>
+          </button>
+        </div>
+
+        <div class="field-group">
+          <label for="projectTitle" class="native-label">Project Title</label>
+          <div class="input-shell">
+            <input id="projectTitle" placeholder="e.g. Full-stack Dashboard in Next.js & TypeScript">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="projectDescription" class="native-label">Project Description (Untrusted Input)</label>
+          <div class="input-shell">
+            <textarea id="projectDescription" rows="5" placeholder="Paste description or click 'Read Current Tab'..."></textarea>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="budget" class="native-label">Your Proposed Bid</label>
+            <div class="input-shell">
+              <input id="budget" placeholder="e.g. 450 USD">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="extraInstructions" class="native-label">Extra Notes (Optional)</label>
+            <div class="input-shell">
+              <input id="extraInstructions" placeholder="e.g. Highlight React 19">
+            </div>
+          </div>
+        </div>
+
+        <button id="goToDraftBtn" class="secondary-btn full-width" style="margin-top:12px;">
+          <span>Back to Proposal Draft →</span>
+        </button>
+      </section>
+
+      <!-- VIEW 3: PROPOSAL LIBRARY & WIN TRACKING -->
+      <section id="viewLibrary" class="tab-panel" role="tabpanel" hidden>
+        <div class="library-header">
+          <div class="library-title-row">
+            <div class="panel-title-group">
+              <span class="panel-title">Saved Proposals</span>
+              <span class="pill-badge" id="libraryCountBadge">0 saved</span>
+            </div>
+          </div>
+          <div class="filter-chip-group" id="libraryFilters">
+            <button class="chip-btn active" data-filter="all">All</button>
+            <button class="chip-btn" data-filter="starred">⭐ Starred</button>
+            <button class="chip-btn" data-filter="won">🏆 Won</button>
+            <button class="chip-btn" data-filter="replied">💬 Replied</button>
+          </div>
+        </div>
+
+        <div class="ai-learning-banner">
+          <div class="learning-icon">💡</div>
+          <div class="learning-text">
+            <strong>AI Win-Rate Learner:</strong> Proposals marked as <b>🏆 Won</b> or <b>⭐ Starred</b> are automatically injected into the AI as real writing examples so it learns your winning style.
+          </div>
+        </div>
+
+        <div id="libraryContainer" class="library-container">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+
+      <!-- VIEW 4: PROFILE & MODEL -->
+      <section id="viewProfile" class="tab-panel" role="tabpanel" hidden>
+        <div class="panel-header">
+          <span class="panel-title">Truthful Profile Snapshot</span>
+          <button id="settingsLinkBtn" class="pill-btn subtle">
+            <span>Configure All ↗</span>
+          </button>
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-meta">
+            <div class="avatar-circle" id="profileAvatar">U</div>
+            <div class="profile-details">
+              <strong id="profileDisplayName">User</strong>
+              <span class="profile-role" id="profileModelLabel">OpenAI gpt-4o-mini</span>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <span class="profile-label">VERIFIED SKILLS</span>
+            <div class="skills-wrap" id="skillsTagList">
+              <span class="skill-tag">Loading skills...</span>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <span class="profile-label">WRITING TONE</span>
+            <p class="profile-tone-text" id="profileToneSummary">Direct, authentic, professional.</p>
+          </div>
+        </div>
+
+        <div class="compliance-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+          </svg>
+          <span>Live site adapter is disabled by default for platform compliance. Bids are never submitted automatically.</span>
+        </div>
+      </section>
+    </main>
+
+    <!-- Native App Floating Status Bar / Toast -->
+    <div id="statusBox" class="native-toast" role="status" aria-live="polite">
+      <div class="toast-indicator" id="toastIndicator"></div>
+      <span class="toast-text" id="toastMessage">Ready. Press Generate to create a tailored proposal.</span>
+    </div>
+
+    <!-- Window Footer -->
+    <footer class="app-footer">
+      <span>🛡️ Review all proposals & prices manually before submitting on any platform.</span>
+    </footer>
+  </div>
+
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

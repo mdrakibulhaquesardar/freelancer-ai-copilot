@@ -1,0 +1,36 @@
+node_modules/
+.output/
+.wxt/
+dist/
+build/
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.local
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Test coverage
+coverage/
+
+# Scraped local mock HTML
+docs/*.htm
+docs/*.html
+docs/*

@@ -1,0 +1,35 @@
+{
+  "name": "freelancer-ai-copilot",
+  "version": "0.1.0",
+  "description": "High-converting, privacy-first freelance proposal writer and assisted autofill Chrome Extension powered by Groq and OpenAI.",
+  "license": "MIT",
+  "keywords": [
+    "freelance",
+    "ai-copilot",
+    "upwork",
+    "freelancer",
+    "chrome-extension",
+    "mv3",
+    "groq",
+    "openai",
+    "wxt",
+    "proposals"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "build": "wxt build",
+    "zip": "wxt zip",
+    "postinstall": "wxt prepare",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.287",
+    "@types/node": "^26.6.5",
+    "happy-dom": "^21.0.4",
+    "typescript": "^5.7.2",
+    "vitest": "^5.0.5",
+    "wxt": "^0.19.29"
+  }
+}

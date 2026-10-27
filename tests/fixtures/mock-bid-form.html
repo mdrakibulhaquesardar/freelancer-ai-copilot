@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mock Bid Proposal Form</title>
+</head>
+<body>
+  <form id="bid-form">
+    <h2>Place a Bid on this Project</h2>
+
+    <!-- Hidden / disabled / readonly controls to verify they are skipped -->
+    <input type="hidden" name="csrf_token" value="test-token-12345">
+    <input type="text" name="readOnlyField" value="Cannot Touch" readonly>
+    <input type="text" name="disabledField" value="Disabled Value" disabled>
+
+    <!-- Budget Field -->
+    <div class="form-group">
+      <label for="bid-amount">Bid Amount ($ USD)</label>
+      <input type="number" id="bid-amount" name="bid_amount" placeholder="e.g. 350">
+    </div>
+
+    <!-- Proposal Field -->
+    <div class="form-group">
+      <label for="proposal-input">Describe your proposal</label>
+      <textarea id="proposal-input" name="proposal_text" rows="8" placeholder="What makes you the best candidate for this project?"></textarea>
+    </div>
+
+    <!-- Action button that must NEVER be clicked or submitted by autofill -->
+    <div class="actions">
+      <button type="submit" id="place-bid-btn" class="btn-primary">Place Bid</button>
+      <button type="button" id="cancel-btn">Cancel</button>
+    </div>
+  </form>
+</body>
+</html>
